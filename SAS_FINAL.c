@@ -108,7 +108,7 @@ void add_student() {
     student_count++;
 
     // Sort by name after adding a new student
-    bubble_sort(compare_by_name);
+    //bubble_sort(compare_by_name);
 }
 
 void edit_student() {
@@ -120,7 +120,7 @@ void edit_student() {
     while (i < student_count) {
         if (students[i].unique_number == unique_number) {
             printf("\nEditing student with unique number %d\n", unique_number);
-            printf("Enter new name: ");
+            printf("Enter new last name: ");
             scanf("%s", students[i].name);
             printf("Enter new first name: ");
             scanf("%s", students[i].first_name);
@@ -132,7 +132,7 @@ void edit_student() {
             scanf("%f", &students[i].general_note);
 
             
-            bubble_sort(compare_by_name);
+            //bubble_sort(compare_by_name);
             return;
         }
         i++;
@@ -156,7 +156,7 @@ void delete_student() {
             student_count--;
 
             // Sort by name after deleting a student
-            bubble_sort(compare_by_name);
+            //bubble_sort(compare_by_name);
             return;
         }
         i++;
@@ -166,12 +166,12 @@ void delete_student() {
 
 void view_student_details() {
     int unique_number;
-    printf("\nEnter unique number of the student to view details: ");
-    scanf("%d", &unique_number);
+    //printf("\nEnter unique number of the student to view details: ");
+    //scanf("%d", &unique_number);
 
     int i = 0;
     while (i < student_count) {
-        if (students[i].unique_number == unique_number) {
+       // if (students[i].unique_number == unique_number) {
             printf("\nStudent Details:\n");
             printf("Unique Number: %d\n", students[i].unique_number);
             printf("Last Name: %s\n", students[i].name);
@@ -179,11 +179,11 @@ void view_student_details() {
             printf("Date of Birth: %s\n", students[i].date_of_birth);
             printf("Department: %s\n", students[i].department);
             printf("General Note: %.2f\n", students[i].general_note);
-            return;
-        }
+           // return;
+        //}
         i++;
     }
-    printf("Student with unique number %d not found.\n", unique_number);
+    //printf("Student with unique number %d not found.\n", unique_number);
 }
 
 void calculate_overall_average() {
@@ -198,16 +198,16 @@ void calculate_overall_average() {
         int j = 0;
         while (j < NUM_DEPARTMENTS) {
             if (strcmp(students[i].department, departments[j]) == 0) {
-                dept_index = j;
+                dept_index = j;//save the index that it matches the department
                 break;
             }
             j++;
         }
         if (dept_index != -1) {
-            department_averages[dept_index] += students[i].general_note;
-            department_counts[dept_index]++;
-            total_average += students[i].general_note;
-            total_students++;
+            department_averages[dept_index] += students[i].general_note;//to add student grade to th average
+            department_counts[dept_index]++;//increase student count that department
+            total_average += students[i].general_note;//add student grade to th university overall
+            total_students++;//increase the total number of the students
         }
         i++;
     }
@@ -237,30 +237,30 @@ void show_statistics() {
         int dept_index = -1;
         int j = 0;
         while (j < NUM_DEPARTMENTS) {
-            if (strcmp(students[i].department, departments[j]) == 0) {
+            if (strcmp(students[i].department, departments[j]) == 0) {//to track number of student in each department
                 dept_index = j;
                 break;
             }
             j++;
         }
         if (dept_index != -1) {
-            dept_counts[dept_index]++;
+            dept_counts[dept_index]++;// Increment the count for this department
             if (students[i].general_note >= 10) {
-                successful_students[dept_index]++;
+                successful_students[dept_index]++;// Increment the count for the successful student
             }
-            if (num_top_students < 3) {
+            if (num_top_students < 3) {//cheks if we added 3 students yet
                 top_students[num_top_students] = students[i];
                 num_top_students++;
             } else {
                 int min_index = 0;
                 for (int k = 0; k < num_top_students; k++) {
-                    if (students[k].general_note > top_students[min_index].general_note) {
+                    if (students[k].general_note > top_students[min_index].general_note) {// to Find the student with the lowest general_note in top_students
                          min_index = k;
                         
                     }
                 }
-                if (students[i].general_note > top_students[min_index].general_note) {
-                         top_students[min_index] = students[i];
+                if (students[i].general_note > top_students[min_index].general_note) {// If current student has a higher note than the lowest top student
+                         top_students[min_index] = students[i];// Replace
                     }
             }
         }
